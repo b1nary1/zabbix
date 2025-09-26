@@ -1,0 +1,330 @@
+{
+    "zabbix_export": {
+        "version": "7.0",
+        "template_groups": [
+            {
+                "uuid": "0c29308bb70a4a5c9e682c09fa8e049d",
+                "name": "Custom templates"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "7ea8be97b7b44b81a075bfacdb7c899d",
+                "template": "Template MIC",
+                "name": "Template MIC",
+                "groups": [
+                    {
+                        "name": "Custom templates"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "4bcaa213dfbc41849f26077a03ce4910",
+                        "name": "mic astats - raw",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "mic.astats.raw",
+                        "delay": "15s",
+                        "history": "1d",
+                        "value_type": "TEXT",
+                        "trends": "0",
+                        "timeout": "20s"
+                    },
+                    {
+                        "uuid": "c66a3cc0e29e448391e8eb3d2208d517",
+                        "name": "Crest factor",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Crest factor\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Crest factor: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "b7e6641a3d8b4e92be55fd5a52877502",
+                        "name": "DC offset",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"DC offset\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "DC offset: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "570a12bf0b87451ca0bd923711432636",
+                        "name": "Entropy",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Entropy\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Entropy: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "912c58af78ff4bee8068b52a5fa284e7",
+                        "name": "Flat factor",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Flat factor\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Flat factor: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "2b2c27a4b1ac4d4fb0025c1b6443ae95",
+                        "name": "Max level",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Max level\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Max level: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        },
+                        "triggers": [
+                            {
+                                "uuid": "55f6647bb52e40b18c3cc9edeaebdaac",
+                                "expression": "avg(/Template MIC/mic.astats[\"Max level\"],#5)<1000",
+                                "name": "Your fan stopped working!",
+                                "status": "DISABLED",
+                                "priority": "DISASTER",
+                                "description": "Cat will soon become sad, go and fix it ASAP!"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "2a40298934a94cf89e9d8fe2e50cd2c1",
+                        "name": "Min level",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Min level\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Min level: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "7590c5bb626d4593a95b1fb727fe0870",
+                        "name": "Noise floor count",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Noise floor count\"]",
+                        "delay": "0",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Noise floor count: (\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "2571ec8951e3466db3b72eeb69388b89",
+                        "name": "Noise floor dB",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Noise floor dB\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "!dB",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Noise floor dB: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "CUSTOM_VALUE",
+                                "error_handler_params": "-91"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "8e90e053ca4649fe8b45ae65eca16a95",
+                        "name": "Peak level dB",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Peak level dB\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "!dB",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Peak level dB: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "f0c31d3d93bb4a54a2730bf941224db9",
+                        "name": "RMS level dB",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"RMS level dB\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "!dB",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "RMS level dB: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "6924ce8b74ee465dbe93876c57529eb5",
+                        "name": "RMS peak dB",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"RMS peak dB\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "!dB",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "RMS peak dB: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "e7914881aa9442e98b43c90cc0987579",
+                        "name": "RMS trough dB",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"RMS trough dB\"]",
+                        "delay": "0",
+                        "value_type": "FLOAT",
+                        "units": "!dB",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "RMS trough dB: (-?\\d+\\.\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "9d200400ae3f46e899226d1e8205a7cf",
+                        "name": "Zero crossings",
+                        "type": "DEPENDENT",
+                        "key": "mic.astats[\"Zero crossings\"]",
+                        "delay": "0",
+                        "preprocessing": [
+                            {
+                                "type": "REGEX",
+                                "parameters": [
+                                    "Zero crossings: (\\d+)",
+                                    "\\1"
+                                ],
+                                "error_handler": "DISCARD_VALUE"
+                            }
+                        ],
+                        "master_item": {
+                            "key": "mic.astats.raw"
+                        }
+                    },
+                    {
+                        "uuid": "f95bc306a72d4de6b7b0bd6dcd7c1381",
+                        "name": "Zero dB",
+                        "type": "CALCULATED",
+                        "key": "zero.db",
+                        "params": "0"
+                    }
+                ]
+            }
+        ]
+    }
+}
