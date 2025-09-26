@@ -9,4 +9,5 @@ For more information, you can watch the explanatory video here:
 
 ## log_reader
 
-TBA
+For more information, you can watch the explanatory video here:
+[log_reader explained](https://www.youtube.com/watch?v=KX2eCDteuyY)
