@@ -11,3 +11,8 @@ For more information, you can watch the explanatory video here:
 
 For more information, you can watch the explanatory video here:
 [log_reader explained](https://www.youtube.com/watch?v=KX2eCDteuyY)
+
+## sounds
+
+For more information, you can watch the explanatory video here:
+[sounds explained](https://www.youtube.com/watch?v=1Jx7tg-28RQ)
